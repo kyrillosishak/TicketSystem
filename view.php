@@ -15,7 +15,7 @@ if (!$ticket) {
     exit('Invalid ticket ID!');
 }
 // Update status
-if (isset($_GET['status']) && in_array($_GET['status'], array('open', 'closed', 'resolved'))) {
+if (isset($_GET['status']) && in_array($_GET['status'], array('open', 'assigned', 'resolved'))) {
     $stmt = $pdo->prepare('UPDATE tickets SET status = ? WHERE id = ?');
     $stmt->execute([ $_GET['status'], $_GET['id'] ]);
     header('Location: view.php?id=' . $_GET['id']);
@@ -42,11 +42,6 @@ $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="ticket">
         <p class="created"><?=date('F dS, G:ia', strtotime($ticket['created']))?></p>
         <p class="msg"><?=nl2br(htmlspecialchars($ticket['msg'], ENT_QUOTES))?></p>
-    </div>
-
-    <div class="btns">
-        <a href="view.php?id=<?=$_GET['id']?>&status=closed" class="btn red">Close</a>
-        <a href="view.php?id=<?=$_GET['id']?>&status=resolved" class="btn">Resolve</a>
     </div>
 
     <div class="comments">
