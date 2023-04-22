@@ -127,7 +127,7 @@ body {
 .view h2 .open, .view h2 .resolved {
     color: #38b673;
 }
-.view h2 .closed {
+.view h2 .assigned {
     color: #b63838;
 }
 .view .ticket {
