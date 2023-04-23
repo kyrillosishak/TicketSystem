@@ -24,7 +24,7 @@ if (isset($_GET['status']) && in_array($_GET['status'], array('open', 'assigned'
 // Check if the comment form has been submitted
 if (isset($_POST['msg']) && !empty($_POST['msg'])) {
     // Insert the new comment into the "tickets_comments" table
-    $stmt = $pdo->prepare('INSERT INTO tickets_comments (ticket_id, msg) VALUES (?, ?)');
+    $stmt = $pdo->prepare('INSERT INTO tickets_comments (ticket_id, msg, owner) VALUES (?, ?, "USER")');
     $stmt->execute([ $_GET['id'], $_POST['msg'] ]);
     header('Location: view.php?id=' . $_GET['id']);
     exit;
@@ -40,7 +40,7 @@ $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	<h2><?=htmlspecialchars($ticket['title'], ENT_QUOTES)?> <span class="<?=$ticket['status']?>">(<?=$ticket['status']?>)</span></h2>
 
     <div class="ticket">
-        <p class="created"><?=date('F dS, G:ia', strtotime($ticket['created']))?></p>
+        <p class="created"> ( USER ) <?=date('F dS, G:ia', strtotime($ticket['created']))?></p>
         <p class="msg"><?=nl2br(htmlspecialchars($ticket['msg'], ENT_QUOTES))?></p>
     </div>
 
@@ -51,7 +51,7 @@ $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <i class="fas fa-comment fa-2x"></i>
             </div>
             <p>
-                <span><?=date('F dS, G:ia', strtotime($comment['created']))?></span>
+                <span>( <?=nl2br(htmlspecialchars($comment['owner'], ENT_QUOTES))?> ) <?=date('F dS, G:ia', strtotime($comment['created']))?></span>
                 <?=nl2br(htmlspecialchars($comment['msg'], ENT_QUOTES))?>
             </p>
         </div>

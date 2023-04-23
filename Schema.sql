@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS `tickets_comments` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`ticket_id` int(11) NOT NULL,
 	`msg` text NOT NULL,
+	`owner` text NOT NULL,
 	`created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
