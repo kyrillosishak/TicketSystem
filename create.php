@@ -19,7 +19,7 @@ if (isset($_POST['title'], $_POST['email'], $_POST['msg'])) {
     }
 }
 ?>
-<?=template_header('Create Ticket')?>
+<?=template_header('Create Ticket' , $_SESSION['name'])?>
 
 <div class="content create">
 	<h2>Create Ticket</h2>
